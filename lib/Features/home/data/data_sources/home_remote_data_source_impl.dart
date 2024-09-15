@@ -1,7 +1,10 @@
 import 'package:bookly/Features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:bookly/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly/Features/home/domain/entities/book_entity.dart';
+import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/api_service.dart';
+import 'package:bookly/core/utils/functions/save_books.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   final ApiService apiService;
@@ -12,6 +15,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     var data = await apiService.get(
         endPoint: 'volumes?&filtering=free_ebooks&Sorting=Newst&q=flutter');
     List<BookEntity> books = getBooksList(data);
+    saveBooksData(books, kFeturedbox);
     return books;
   }
 
