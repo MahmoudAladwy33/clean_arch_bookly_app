@@ -6,10 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 
 void main() async {
-  runApp(const Bookly());
-
+  await Hive.initFlutter();
   Hive.registerAdapter(BookEntityAdapter());
-  await Hive.openBox(kFeturedbox);
+  await Hive.openBox<BookEntity>(kFeturedbox);
+  await Hive.openBox<BookEntity>(kNewestbox);
+  runApp(const Bookly());
 }
 
 class Bookly extends StatelessWidget {
