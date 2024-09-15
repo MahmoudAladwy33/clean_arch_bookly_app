@@ -27,13 +27,12 @@ class HomeRepoImpl extends HomeRepo {
         return left(
           ServerFailure.fromDioException(e),
         );
-      } else {
-        return left(
-          ServerFailure(
-            errMessage: e.toString(),
-          ),
-        );
       }
+      return left(
+        ServerFailure(
+          errMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -52,13 +51,12 @@ class HomeRepoImpl extends HomeRepo {
         return left(
           ServerFailure.fromDioException(e),
         );
-      } else {
-        return left(
-          ServerFailure(
-            errMessage: e.toString(),
-          ),
-        );
       }
+      return left(
+        ServerFailure(
+          errMessage: e.toString(),
+        ),
+      );
     }
   }
 }
