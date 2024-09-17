@@ -45,7 +45,7 @@ class Bookly extends StatelessWidget {
               FetchNewestBooksUseCase(
                 getIt.get<HomeRepoImpl>(),
               ),
-            );
+            )..fetchNewestBooks();
           },
         )
       ],
