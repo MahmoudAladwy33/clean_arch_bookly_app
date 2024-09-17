@@ -16,6 +16,7 @@ import 'package:hive_flutter/adapters.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(BookEntityAdapter());
+  setupServiceLocator();
   await Hive.openBox<BookEntity>(kFeturedbox);
   await Hive.openBox<BookEntity>(kNewestbox);
   Bloc.observer = SimpleBlocObserver();
@@ -30,18 +31,22 @@ class Bookly extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => FeaturedBooksCubit(
-            FetchFeaturedBooksUseCase(
-              getIt.get<HomeRepoImpl>(),
-            ),
-          ),
+          create: (context) {
+            return FeaturedBooksCubit(
+              FetchFeaturedBooksUseCase(
+                getIt.get<HomeRepoImpl>(),
+              ),
+            )..fetchFeaturedBooks();
+          },
         ),
         BlocProvider(
-          create: (context) => NewestBooksCubit(
-            FetchNewestBooksUseCase(
-              getIt.get<HomeRepoImpl>(),
-            ),
-          ),
+          create: (context) {
+            return NewestBooksCubit(
+              FetchNewestBooksUseCase(
+                getIt.get<HomeRepoImpl>(),
+              ),
+            );
+          },
         )
       ],
       child: MaterialApp.router(
